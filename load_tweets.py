@@ -129,10 +129,13 @@ class loadTweets(object):
                 kwargs = { 'users': user['_id'] }
                 try:
                     response = k.call('klout', **kwargs)
-                    user['klout_score'] = response['users'][0]['kscore']
+                    #                    user['klout_score'] = response['users'][0]['kscore']
                 except klout.KloutError: # probably a 404
                     pass
-                self.db[self.USER_COLL_NAME].remove({'_id': user['_id']})
+                else:
+                    if 'users' in response:
+                        user['klout_score'] = response['users'][0]['kscore']
+                        self.db[self.USER_COLL_NAME].remove({'_id': user['_id']})
                 self.db[self.USER_COLL_NAME].insert(user)
                 update_count += 1
 
