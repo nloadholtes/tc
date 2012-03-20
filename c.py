@@ -10,8 +10,12 @@ def clusterOnTweets(tweets):
     words = []
     clusters = []
     for tweet in tweets:
-        words.append()
+        text = tweet.text
+        wordlist = text.split(' ')
+        words.append(wordlist)
 
+    print(str(words))
+    
     #Loops through the words, bringing together similar scores
     return clusters
 
