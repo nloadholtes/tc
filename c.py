@@ -15,10 +15,14 @@ def clusterOnTweets(tweets):
         words.append(wordlist)
 
     print(str(words))
-    
+
     #Loops through the words, bringing together similar scores
     return clusters
 
 
 if __name__ == "__main__":
     print("Clustering experiment")
+    #Get tweets
+    tweets = []
+    clusterOnTweets(tweets)
+
