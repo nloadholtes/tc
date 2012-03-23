@@ -18,22 +18,22 @@ class Display(object):
     ITAL_OFF = '\033[23m'
     BOLD_ON = '\033[1m'
     BOLD_OFF = '\033[22m'
-    
+
     MAX_TWITTER_USERNAME_LENGTH = 15
-    
+
     def html_decode(self, text):
-	for entity, repl in htmlentitydefs.entitydefs.iteritems():
-		if repl in string.printable:
-			text = re.sub('&%s;' % entity, repl, text)
-	return text
+        for entity, repl in htmlentitydefs.entitydefs.iteritems():
+                if repl in string.printable:
+                        text = re.sub('&%s;' % entity, repl, text)
+        return text
 
     def display_tweets(self, tweets):
 
         for t in tweets:
             if t['_display']:
-		text = self.html_decode(t['text'])
+                text = self.html_decode(t['text'])
                 spacer = ' '.join(['' for i in range((self.MAX_TWITTER_USERNAME_LENGTH + 2) - len(t['user']))])
-                if settings.TWITTER_USERNAME in text: # highlight replies   
+                if settings.TWITTER_USERNAME in text: # highlight replies
                     text = self.BOLD_ON + text + self.BOLD_OFF
                 tweet_text = self.OKGREEN + t['user'] + self.ENDC + spacer + text
                 if t.get('_display_topics', None): # print with topics
@@ -53,4 +53,3 @@ class Display(object):
                     print tweet_text + '  ' + self.OKBLUE + t['url'] + self.ENDC
                 else: # print without topics
                     print tweet_text
-    
