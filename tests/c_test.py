@@ -1,5 +1,9 @@
 #
-# tests go here
+# c_test.py
+#
+# Nick Loadholtes <nick@ironboundsoftware.com>
+# Testing an Experiment in clustering tweets
+#
 
 import unittest
 import c
