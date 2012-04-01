@@ -6,7 +6,7 @@
 #
 
 def clusterOnTweets(tweets):
-    """Take the tweets, create clusters of similar twees"""
+    """Take the tweets, create clusters of similar tweets"""
     words = []
     clusters = []
     for tweet in tweets:
