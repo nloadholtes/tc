@@ -123,13 +123,14 @@ class checkin(tweetClassifier):
 
         return ('checkin', score)
 
-class Emotion(tweetClassifer):
+class Emotion(tweetClassifier):
     """Looks at the tweet and tries to determine the 'emotion' of the tweet"""
     def __init__(self):
         pass
 
     def classify(self, tweet):
         score = 0.0
+        return score
 
 if __name__ == '__main__':
     # n = narcissism()
