@@ -125,11 +125,23 @@ class checkin(tweetClassifier):
 
 class Emotion(tweetClassifier):
     """Looks at the tweet and tries to determine the 'emotion' of the tweet"""
-    def __init__(self):
-        pass
+    NEG_WORDS = ('hate', 'blows', 'sucks')
+    POS_WORDS = ('like', 'love', 'cool', 'awesome')
+
+    def __init__(self, debug=False):
+        self.debug = debug
 
     def classify(self, tweet):
         score = 0.0
+        words = tweet.split(' ')
+        multiplier = 1/len(words)
+        for word in words:
+            if word in self.NEG_WORDS:
+                score -= multiplier
+            if word in self.POS_WORDS:
+                score += multiplier
+        if self.debug:
+            print('%.4f - %s' % (score, tweet))
         return score
 
 if __name__ == '__main__':

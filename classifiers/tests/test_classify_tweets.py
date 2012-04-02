@@ -15,7 +15,7 @@ NEUTRAL_TWEET = ['This is just some text']
 
 class TestEmotion(unittest.TestCase):
     def setUp(self):
-        self.c = Emotion()
+        self.c = Emotion(True)
 
     def testNegativeEmotion(self):
         self.assertTrue(self.c.classify(NEGATIVE_TWEET[0]) < 0.0)
