@@ -50,11 +50,28 @@ class loadTweets(object):
             tweets = self.api.home_timeline(since_id, count=500)
         else:
             tweets = self.api.home_timeline(count=500)
-        
+
+        ts, authors = self.parse_tweers(tweets)
+
+        self.update_authors(authors)
+
+        # insert into db
+        try:
+            self.db[self.DB_NAME].insert(ts)
+        except pymongo.errors.InvalidOperation: # no tweets?
+            pass
+
+        if self.debug:
+            print "added %s tweets to the db" % (len(ts))
+
+    def retrieve_search_results(self, searchstr):
+        pass
+
+    def parse_tweets(self, tweets):
         # parse each incoming tweet
         ts = []
         authors = []
-        for tweet in tweets: 
+        for tweet in tweets:
             t = {
             'author': tweet.author.screen_name,
             'contributors': tweet.contributors,
@@ -81,48 +98,38 @@ class loadTweets(object):
             }
             u = {
             '_id': tweet.author.screen_name, # use as mongo primary key
-            'contributors_enabled': tweet.author.contributors_enabled, 
-            'created_at': tweet.author.created_at, 
-            'description': tweet.author.description, 
+            'contributors_enabled': tweet.author.contributors_enabled,
+            'created_at': tweet.author.created_at,
+            'description': tweet.author.description,
             'favourites_count': tweet.author.favourites_count, # beware the british
-            'follow_request_sent': tweet.author.follow_request_sent, 
-            'followers_count': tweet.author.followers_count, 
-            'following': tweet.author.following, 
-            'friends_count': tweet.author.friends_count, 
-            'geo_enabled': tweet.author.geo_enabled, 
-            'twitter_user_id': tweet.author.id, 
-            'lang': tweet.author.lang, 
-            'listed_count': tweet.author.listed_count, 
-            'location': tweet.author.location, 
-            'name': tweet.author.name, 
-            'notifications': tweet.author.notifications, 
-            'profile_image_url': tweet.author.profile_image_url, 
-            'protected': tweet.author.protected, 
-            'statuses_count': tweet.author.statuses_count, 
-            'time_zone': tweet.author.time_zone, 
-            'url': tweet.author.url, 
-            'utc_offset': tweet.author.utc_offset, 
+            'follow_request_sent': tweet.author.follow_request_sent,
+            'followers_count': tweet.author.followers_count,
+            'following': tweet.author.following,
+            'friends_count': tweet.author.friends_count,
+            'geo_enabled': tweet.author.geo_enabled,
+            'twitter_user_id': tweet.author.id,
+            'lang': tweet.author.lang,
+            'listed_count': tweet.author.listed_count,
+            'location': tweet.author.location,
+            'name': tweet.author.name,
+            'notifications': tweet.author.notifications,
+            'profile_image_url': tweet.author.profile_image_url,
+            'protected': tweet.author.protected,
+            'statuses_count': tweet.author.statuses_count,
+            'time_zone': tweet.author.time_zone,
+            'url': tweet.author.url,
+            'utc_offset': tweet.author.utc_offset,
             'verified': tweet.author.verified,
             '_updated': datetime.datetime.now(),
             }
             authors.append(u)
             ts.append(t)
-
-        self.update_authors(authors)
-        
-        # insert into db
-        try:
-            self.db[self.DB_NAME].insert(ts)
-        except pymongo.errors.InvalidOperation: # no tweets?
-            pass
-        
-        if self.debug:
-            print "added %s tweets to the db" % (len(ts))
+        return ts, authors
 
     def update_authors(self, authors):
         k = klout.KloutAPI(settings.KLOUT_API_KEY)
         update_count = 0
-        
+
         for user in authors:
             records = [r for r in self.db[self.USER_COLL_NAME].find(spec={'_id': user['_id']})]
             if not records or abs(records[0]['_updated'] - datetime.datetime.now()) >= datetime.timedelta(1): # update once per day
