@@ -21,7 +21,7 @@ import settings # local app settings
 class loadTweets(object):
     DB_NAME = 'tweets'
     USER_COLL_NAME = 'users'
-    
+
     def __init__(self, debug=False):
         self.debug = debug
         self.db = mongodb.connect(self.DB_NAME)
@@ -37,7 +37,7 @@ class loadTweets(object):
             auth = self.setup_auth()
             self.api = tweepy.API(auth)
             self.fetchTweets(last_tweet_id)
-        
+
         self.classify_tweets()
 
 
@@ -51,7 +51,7 @@ class loadTweets(object):
         else:
             tweets = self.api.home_timeline(count=500)
 
-        ts, authors = self.parse_tweers(tweets)
+        ts, authors = self.parse_tweets(tweets)
 
         self.update_authors(authors)
 
@@ -65,7 +65,12 @@ class loadTweets(object):
             print "added %s tweets to the db" % (len(ts))
 
     def retrieve_search_results(self, searchstr):
-        pass
+        searchresults = self.api.search(q=searchstr)
+        results = []
+        for result in searchresults.results:
+            item = {}
+            results.append(item)
+        return results
 
     def parse_tweets(self, tweets):
         # parse each incoming tweet
