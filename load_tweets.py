@@ -68,7 +68,13 @@ class loadTweets(object):
         searchresults = self.api.search(q=searchstr)
         results = []
         for result in searchresults.results:
-            item = {}
+            item = {
+                "created_at": result.created_at,
+                "from_user_id": result.from_user_id,
+                "id_str": result.id_str,
+                "text": result.text,
+                "iso_language_code": result.iso_language_code,
+            }
             results.append(item)
         return results
 
