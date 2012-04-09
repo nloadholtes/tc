@@ -165,7 +165,6 @@ class loadTweets(object):
         if self.debug:
             print "updated %s users in the db" % (update_count)
 
-            
 
     def classify_tweets(self):
         classifiers = []
@@ -181,8 +180,8 @@ class loadTweets(object):
 
             self.db[self.DB_NAME].update({'_id': r['_id']}, {'$set': {'topics': topics }})
 
-    
-    # util classes    
+
+    # util classes
     def setup_auth(self):
         """
         setup_auth: authorize tc with oath
@@ -193,9 +192,9 @@ class loadTweets(object):
         print "( if the browser fails to open, please go to: %s )" % auth_url
         verifier = raw_input("What's your PIN: ").strip()
         auth.get_access_token(verifier)
-        pickle.dump((auth.access_token.key, auth.access_token.secret), open('settings_twitter_creds','w'))        
+        pickle.dump((auth.access_token.key, auth.access_token.secret), open('settings_twitter_creds','w'))
         return auth
-    
+
     def init_twitter(self, username, password):
         auth = tweepy.BasicAuthHandler(username, password)
         api = tweepy.API(auth)
