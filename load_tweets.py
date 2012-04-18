@@ -83,6 +83,12 @@ class loadTweets(object):
 
         return results
 
+    def save_tweet(self, tweet, collection):
+        try:
+            self.db[collection].insert(tweet)
+        except Exception as e:
+            print("Error seen while saving tweet:" +str(e))
+
     def parse_tweets(self, tweets):
         # parse each incoming tweet
         ts = []

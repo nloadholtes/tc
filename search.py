@@ -9,13 +9,10 @@
 import sys
 from load_tweets import loadTweets
 
-def retrieveTweetSearch(topic):
+def retrieveTweetSearch(lt, topic):
     output = []
 
     return output
-
-def saveTweets(tweets):
-    return
 
 
 if __name__ == '__main__':
@@ -23,5 +20,7 @@ if __name__ == '__main__':
         print("A search query is needed")
         exit(-1)
 
-    tweets = retrieveTweetSearch(sys.argv)
-    saveTweets(tweets)
+    collectionname = ''.join(sys.argv[1:][0].split(' '))
+    lt = loadTweets()
+    tweets = retrieveTweetSearch(lt, sys.argv[1:][0])
+    lt.save_tweet(tweets, collectionname)
