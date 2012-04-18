@@ -6,6 +6,7 @@
 #
 # Searches twitter, stores results for later analysis
 
+import sys
 from load_tweets import loadTweets
 
 def retrieveTweetSearch(topic):
@@ -18,9 +19,9 @@ def saveTweets(tweets):
 
 
 if __name__ == '__main__':
-    if len(sys.arg) < 2:
+    if len(sys.argv) < 2:
         print("A search query is needed")
         exit(-1)
 
-    tweets = retrieveTweetsSearch(sys.arg)
+    tweets = retrieveTweetSearch(sys.argv)
     saveTweets(tweets)
