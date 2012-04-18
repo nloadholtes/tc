@@ -10,8 +10,7 @@ import sys
 from load_tweets import loadTweets
 
 def retrieveTweetSearch(lt, topic):
-    output = []
-
+    output = lt.retrieve_search_results(topic)
     return output
 
 

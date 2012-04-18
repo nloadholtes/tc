@@ -76,11 +76,6 @@ class loadTweets(object):
                 "iso_language_code": result.iso_language_code,
             }
             results.append(item)
-        try:
-            self.db['search'].insert(ts)
-        except pymongo.errors.InvalidOperation: # no tweets?
-            pass
-
         return results
 
     def save_tweet(self, tweet, collection):
