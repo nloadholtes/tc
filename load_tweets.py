@@ -82,9 +82,15 @@ class loadTweets(object):
         try:
             self.db[collection].insert(tweet)
         except Exception as e:
-            print("Error seen while saving tweet:" +str(e))
+            print("Error seen while saving tweet:" +str (e))
 
-    def parse_tweets(self, tweets):
+    def update_tweet(self, tweet, collection):
+        try:
+            self.db[collection].update({"_id":tweet._id}, tweet, safe=True)
+        except Exception as e:
+            print("Error seen while updating tweet:" + str(e))
+
+     def parse_tweets(self, tweets):
         # parse each incoming tweet
         ts = []
         authors = []
