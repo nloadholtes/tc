@@ -8,6 +8,7 @@
 import sys
 from classifiers.classify_tweets import Emotion
 from load_tweets import loadTweets
+import json
 
 def scoreTweet(tweet, classifier):
     """Looks at the tweet and gives it a score based on
@@ -30,7 +31,10 @@ if __name__ == '__main__':
 
     lt = loadTweets()
     collectionname = sys.argv[1]
-    tweets = getTweets(collectionname, lt)
+    tweets_cursor = getTweets(collectionname, lt)
+    tweets = []
+    for t in tweets_cursor:
+        tweets.append(t)
     f = open(collectionname +".json", "w")
     f.write(str(tweets))
     f.close()
