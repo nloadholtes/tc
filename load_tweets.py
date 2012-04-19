@@ -90,7 +90,12 @@ class loadTweets(object):
         except Exception as e:
             print("Error seen while updating tweet:" + str(e))
 
-     def parse_tweets(self, tweets):
+    def get_stored_tweets(self, collection):
+        """Return what we've already stored in Mongo"""
+        output = self.db[collection].find()
+        return output
+
+    def parse_tweets(self, tweets):
         # parse each incoming tweet
         ts = []
         authors = []

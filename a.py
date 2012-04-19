@@ -5,7 +5,7 @@
 #
 # Analysis of tweets
 #
-
+import sys
 from classifiers.classify_tweets import Emotion
 from load_tweets import loadTweets
 
@@ -18,6 +18,19 @@ def saveScore(tweet, score, collection, lt):
     tweet.score = score
     lt.update_tweet(tweet, collection)
 
+def getTweets(collection, lt):
+    tweets = lt.get_stored_tweets(collection)
+    return tweets
+
 if __name__ == '__main__':
     print("Examining tweets (Emotion)")
+    if len(sys.argv) < 2:
+        print("A search query is needed")
+        exit(-1)
 
+    lt = loadTweets()
+    collectionname = sys.argv[1]
+    tweets = getTweets(collectionname, lt)
+    f = open(collectionname +".json", "w")
+    f.write(str(tweets))
+    f.close()
