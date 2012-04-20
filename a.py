@@ -37,7 +37,7 @@ if __name__ == '__main__':
     # for t in tweets_cursor:
     #     tweets.append(t)
     # f = open(collectionname +".json", "w")
-    # dthandler = lambda obj: obj.isoformat() if isinstance(obj, datetime.datetime) else None
+    dthandler = lambda obj: obj.isoformat() if isinstance(obj, datetime.datetime) else None
     # f.write(json.dumps(tweets,default=dthandler))
     # f.close()
 
@@ -72,3 +72,7 @@ if __name__ == '__main__':
     print("G,b,n: %d,%d,%d" %(good, bad, neutral))
     for x in range(141,155):
         print(n_tweets[x]+"\n")
+
+    nf = open("neutral.json", "w")
+    nf.write(json.dumps(n_tweets, default=dthandler))
+    nf.close()
