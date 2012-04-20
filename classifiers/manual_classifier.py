@@ -21,6 +21,7 @@ if __name__ == '__main__':
     f.close()
 
     #Examine each entry
+    results ={'pos':[], 'neg':[],'neutral':[]}
     reallyquit = False
     for text in data:
         print(text)
@@ -30,11 +31,11 @@ if __name__ == '__main__':
             tryagain = False
             #record + or - or pass
             if k == 'p':
-                pass
+                results['pos'].append(text)
             elif k == 'n':
-                pass
+                results['neg'].append(text)
             elif k == 'o':
-                pass
+                results['neutral'].append(text)
             elif k == 'q':
                 reallyquit = True
                 break
@@ -42,8 +43,11 @@ if __name__ == '__main__':
                 tryagain = True
         if reallyquit:
             break
-#look neg, see most common words
+        #look neg, see most common words
 
-#look at pos, see most common words
+        #look at pos, see most common words
 
-#write out pos andneg words.
+    #write out pos andneg words.
+    fout = open('results.json', 'w')
+    fout.write(json.dumps(results))
+    fout.close()
