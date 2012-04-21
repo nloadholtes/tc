@@ -5,3 +5,4 @@ whitelist_users
 blacklist
 settings.py
 link_cache
+*.json
