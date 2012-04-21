@@ -30,16 +30,16 @@ if __name__ == '__main__':
         print("A search query is needed")
         exit(-1)
 
-    # lt = loadTweets()
+    lt = loadTweets()
     collectionname = sys.argv[1]
-    # tweets_cursor = getTweets(collectionname, lt)
+    tweets_cursor = getTweets(collectionname, lt)
     tweets = []
-    # for t in tweets_cursor:
-    #     tweets.append(t)
-    # f = open(collectionname +".json", "w")
+    for t in tweets_cursor:
+        tweets.append(t)
+    f = open(collectionname +".json", "w")
     dthandler = lambda obj: obj.isoformat() if isinstance(obj, datetime.datetime) else None
-    # f.write(json.dumps(tweets,default=dthandler))
-    # f.close()
+    f.write(json.dumps(tweets,default=dthandler))
+    f.close()
 
     #Load from the test file
     f = open(collectionname+".json", "r")
