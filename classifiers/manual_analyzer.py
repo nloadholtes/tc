@@ -7,7 +7,7 @@
 #
 import heapq
 
-def getWordFrequencies(tweets):
+def getWordFrequencies(tweets, numwords=25):
     wordmap = {}
     for tweet in tweets:
         for word in tweet:
@@ -20,6 +20,12 @@ def getWordFrequencies(tweets):
     for key in wordmap:
         heapq.heappush(items, (wordmap[key], key))
     data = [heapq.heappop(items) for x in range(len(items))]
-    output = data[-numtrends:]
+    output = data[-numwords:]
     output.reverse()
+    return output
+
+def loadFile(filename):
+    f = open(filename,'r')
+    output = f.read()
+    f.close()
     return output
