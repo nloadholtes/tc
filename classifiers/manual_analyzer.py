@@ -9,16 +9,14 @@ import heapq
 import json
 from stopwords import STOPWORDS_LOWERCASE as STOPWORDS
 
-def stopwordChecker(x):
-    if x not in STOPWORDS:
-        return x
 
 def getWordFrequencies(tweets, numwords=25):
     wordmap = {}
     for tweet in tweets:
-        wordstmp = tweet.lower().split(' ')
-        words = [stopwordChecker(w) for w in wordstmp]
+        words = tweet.lower().split(' ')
         for word in words:
+            if word in STOPWORDS:
+                continue
             score = wordmap.get(word, 0)
             score += 1
             wordmap[word] = score
