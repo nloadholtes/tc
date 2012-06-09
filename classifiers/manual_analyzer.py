@@ -10,11 +10,12 @@ import json
 from stopwords import STOPWORDS_LOWERCASE as STOPWORDS
 
 
-def getWordFrequencies(tweets, numwords=25):
+def getWordFrequencies(tweets, numwords=30):
     wordmap = {}
     for tweet in tweets:
-        words = tweet.lower().split(' ')
-        for word in words:
+        words = tweet.lower()
+        words = words.replace(':', '').replace('?', '').replace('.', '').replace('\'', '').replace(',', '')
+        for word in words.split(' '):
             if word in STOPWORDS:
                 continue
             score = wordmap.get(word, 0)
