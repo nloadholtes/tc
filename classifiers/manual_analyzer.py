@@ -6,6 +6,7 @@
 # Various functions for analyzing tweets manual scored
 #
 import heapq
+import json
 
 def getWordFrequencies(tweets, numwords=25):
     wordmap = {}
@@ -26,6 +27,6 @@ def getWordFrequencies(tweets, numwords=25):
 
 def loadFile(filename):
     f = open(filename,'r')
-    output = f.read()
+    output = json.loads(f.read())
     f.close()
     return output
