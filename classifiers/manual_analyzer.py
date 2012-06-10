@@ -16,7 +16,7 @@ def getWordFrequencies(tweets, numwords=30):
         words = tweet.lower()
         words = words.replace(':', '').replace('?', '').replace('.', '').replace('\'', '').replace(',', '')
         for word in words.split(' '):
-            if word in STOPWORDS:
+            if STOPWORDS.get(word) == 0:
                 continue
             score = wordmap.get(word, 0)
             score += 1
