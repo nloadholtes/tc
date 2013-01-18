@@ -67,7 +67,7 @@ class sports(tweetClassifier):
         all_words_freq = nltk.FreqDist(w.lower() for w in all_words) # frequency distribution is a dist of the form word: count_of_how_often_word_appears
         self.word_features = all_words_freq.keys()[:1000] # use the 2k most freq words as our set of features
 
-        featuresets = [(self.document_features(d), c) for (d,c) in data] # divide data into testing and training sets
+        featuresets = nltk.classify.apply_features(self.document_features, data, labeled=True) # divide data into testing and training sets
         train_set, test_set = featuresets[200:], featuresets[:200]
 
         self.classifier = nltk.NaiveBayesClassifier.train(train_set) # invoke the naive bayesian classifier
