@@ -115,7 +115,7 @@ class loadTweets(object):
             'in_reply_to_user_id': tweet.in_reply_to_user_id,
             # 'parse': tweet.parse,
             # 'parse_list': tweet.parse_list,
-            'place': tweet.place,
+            #'place': tweet.place,
             # 'retweet': dir(tweet.retweet),
             # 'retweets': dir(tweet.retweets),
             'source': tweet.source,
